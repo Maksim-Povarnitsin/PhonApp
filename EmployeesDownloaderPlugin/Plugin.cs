@@ -20,6 +20,7 @@ namespace EmployeesDownloaderPlugin
         {
             logger.Info("Downloading employees");
             var employeesList = args.Cast<EmployeesDTO>().ToList();
+            int oldCount = employeesList.Count;
             UsersArrayByJson users = new UsersArrayByJson();
 
             try
@@ -54,7 +55,7 @@ namespace EmployeesDownloaderPlugin
                     logger.Info("End HttpClient");
                 }
                 employeesList = UserConverter.UsersToEmployees(users.Users, employeesList);
-                logger.Info($"Downloaded {employeesList.Count()} employees");
+                logger.Info($"Downloaded {employeesList.Count() - oldCount}; Total employees {employeesList.Count()}");
             }
             catch (Exception ex) 
             {

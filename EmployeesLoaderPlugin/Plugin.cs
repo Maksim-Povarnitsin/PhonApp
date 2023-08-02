@@ -19,6 +19,7 @@ namespace EmployeesLoaderPlugin
         {
             logger.Info("Loading employees");
             var employeesList = args.Cast<EmployeesDTO>().ToList();
+            int oldCount = employeesList.Count;
 
             var employeesNewDataList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<EmployeesDTO>>(EmployeesLoaderPlugin.Properties.Resources.EmployeesJson);
 
@@ -27,7 +28,7 @@ namespace EmployeesLoaderPlugin
                 employeesList.Add( employeeNewData );
             }
 
-            logger.Info($"Loaded {employeesList.Count()} employees");
+            logger.Info($"Loaded {employeesList.Count()-oldCount}; Total employees {employeesList.Count()}");
 
             return employeesList.Cast<DataTransferObject>();
         }
